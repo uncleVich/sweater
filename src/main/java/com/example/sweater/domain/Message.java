@@ -36,12 +36,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getRext() {
+    public String getText() {
         return text;
     }
 
-    public void setRext(String rext) {
-        this.text = rext;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getTag() {
