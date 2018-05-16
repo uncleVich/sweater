@@ -15,7 +15,6 @@ import java.util.Map;
 
 @Controller
 public class MainController {
-
     @Autowired
     private MessageRepo messageRepo;
 
@@ -25,7 +24,7 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false) String filter, Model model){
+    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
         Iterable<Message> messages = messageRepo.findAll();
 
         if (filter != null && !filter.isEmpty()) {
@@ -44,15 +43,16 @@ public class MainController {
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
-            @RequestParam String tag, Map<String, Object> model) {
-       Message message = new Message(text, tag, user);
+            @RequestParam String tag, Map<String, Object> model
+    ) {
+        Message message = new Message(text, tag, user);
 
-       messageRepo.save(message);
+        messageRepo.save(message);
 
-       Iterable<Message> messages = messageRepo.findAll();
-       model.put("messages", messages);
+        Iterable<Message> messages = messageRepo.findAll();
 
-       return "main";
+        model.put("messages", messages);
+
+        return "main";
     }
-
 }
